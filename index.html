@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MOOC · Modelo de Liderazgo Militar · Ejército Nacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="screen active">
+  <div class="login-bg">
+    <div class="login-overlay"></div>
+    <div class="login-particles" id="particles"></div>
+  </div>
+  <div class="login-container">
+    <div class="login-brand">
+      <div class="brand-shield">
+        <svg viewBox="0 0 60 70" fill="none">
+          <path d="M30 4L6 16v20c0 15 10.5 29 24 33 13.5-4 24-18 24-33V16L30 4z" fill="#0d2649" stroke="#3b82f6" stroke-width="2.5"/>
+          <path d="M22 35l6 6 11-12" stroke="#60a5fa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="30" cy="30" r="8" fill="none" stroke="#1d4ed8" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">Ejército Nacional de Colombia</div>
+        <div class="brand-subtitle">PIEM · Alpha · Centro de Liderazgo</div>
+      </div>
+    </div>
+
+    <div class="login-card">
+      <div class="login-card-header">
+        <h1>MOOC</h1>
+        <h2>Modelo de Liderazgo Militar</h2>
+        <p>Accede con tus credenciales institucionales</p>
+      </div>
+
+      <div class="login-form">
+        <div class="form-group">
+          <label>Cédula / Número de identificación</label>
+          <div class="input-wrap">
+            <i class="ti ti-id-badge"></i>
+            <input type="text" id="loginUser" placeholder="Ingresa tu número de cédula" value="1020456789"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <div class="input-wrap">
+            <i class="ti ti-lock"></i>
+            <input type="password" id="loginPass" placeholder="Contraseña institucional" value="ejercito2026"/>
+            <button class="toggle-pass" onclick="togglePass()"><i class="ti ti-eye" id="eyeIcon"></i></button>
+          </div>
+        </div>
+        <div class="login-meta">
+          <label class="checkbox-wrap"><input type="checkbox" checked/><span>Recordar sesión</span></label>
+          <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button class="btn-login" onclick="doLogin()">
+          <span>Ingresar al MOOC</span>
+          <i class="ti ti-arrow-right"></i>
+        </button>
+        <div class="login-error" id="loginError">Credenciales incorrectas. Intenta de nuevo.</div>
+      </div>
+
+      <div class="login-footer">
+        <div class="poli-brand">
+          <span>En alianza con</span>
+          <strong>Politécnico Grancolombiano</strong>
+        </div>
+        <div class="login-version">v1.0 · IBD Ciclo I · 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="appScreen" class="screen">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i></button>
+      <div class="topbar-brand">
+        <svg viewBox="0 0 30 35" fill="none" width="28">
+          <path d="M15 2L3 8v10c0 7.5 5.25 14.5 12 16.5C21.75 32.5 27 25.5 27 18V8L15 2z" fill="#0d2649" stroke="#3b82f6" stroke-width="1.5"/>
+          <path d="M11 17.5l3 3 5.5-6" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="topbar-title">MOOC · Liderazgo Militar</div>
+          <div class="topbar-sub">Ejército Nacional · PIEM Alpha</div>
+        </div>
+      </div>
+    </div>
+    <nav class="topbar-nav">
+      <button class="tnav active" onclick="showSection('dashboard')"><i class="ti ti-layout-dashboard"></i><span>Tablero</span></button>
+      <button class="tnav" onclick="showSection('modules')"><i class="ti ti-stack-2"></i><span>Módulos</span></button>
+      <button class="tnav" onclick="showSection('forums')"><i class="ti ti-messages"></i><span>Foros</span></button>
+      <button class="tnav" onclick="showSection('analytics')"><i class="ti ti-chart-bar"></i><span>Mi Progreso</span></button>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-btn" onclick="toggleNotif()">
+        <i class="ti ti-bell"></i>
+        <span class="notif-badge">3</span>
+      </div>
+      <div class="user-avatar" onclick="toggleUserMenu()">
+        <span>FP</span>
+        <div class="user-menu" id="userMenu">
+          <div class="user-info">
+            <strong>Fabio Pinzón Ariza</strong>
+            <span>Oficial · CELEJ</span>
+          </div>
+          <hr/>
+          <button onclick="showSection('profile')"><i class="ti ti-user"></i> Mi perfil</button>
+          <button onclick="doLogout()"><i class="ti ti-logout"></i> Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="app-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <nav class="sidebar-nav">
+        <button class="si active" onclick="showSection('dashboard')" title="Tablero">
+          <i class="ti ti-home"></i><span>Inicio</span>
+        </button>
+        <button class="si" onclick="showSection('modules')" title="Módulos">
+          <i class="ti ti-stack-2"></i><span>Módulos</span>
+          <span class="si-badge">2</span>
+        </button>
+        <button class="si" onclick="showSection('forums')" title="Foros">
+          <i class="ti ti-messages"></i><span>Foros</span>
+        </button>
+        <button class="si" onclick="showSection('resources')" title="Recursos">
+          <i class="ti ti-file-text"></i><span>Recursos</span>
+        </button>
+        <button class="si" onclick="showSection('analytics')" title="Mi Progreso">
+          <i class="ti ti-chart-line"></i><span>Progreso</span>
+        </button>
+        <div class="si-divider"></div>
+        <button class="si" onclick="showSection('badges')" title="Insignias">
+          <i class="ti ti-award"></i><span>Insignias</span>
+        </button>
+        <button class="si" onclick="showSection('community')" title="Comunidad">
+          <i class="ti ti-users"></i><span>Comunidad</span>
+        </button>
+        <button class="si" onclick="showSection('profile')" title="Perfil">
+          <i class="ti ti-user"></i><span>Perfil</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content-area">
+
+      <!-- DASHBOARD -->
+      <section id="sec-dashboard" class="section active">
+        <div class="hero-banner">
+          <div class="hero-content">
+            <div class="hero-tag"><i class="ti ti-school"></i> xMOOC Híbrido · Asincrónico · ADDIE-IBD · DUA</div>
+            <h1 class="hero-title">MOOC Modelo de Liderazgo Militar</h1>
+            <p class="hero-sub">Ejército Nacional · MFRE 6-22 · PIEM Alpha · CEDOC · 2.5 Créditos académicos</p>
+            <div class="hero-stats">
+              <div class="hstat"><span class="hval">180K</span><span class="hlbl">Participantes</span></div>
+              <div class="hstat"><span class="hval">120h</span><span class="hlbl">Esfuerzo</span></div>
+              <div class="hstat"><span class="hval">2.5</span><span class="hlbl">Créditos</span></div>
+              <div class="hstat"><span class="hval">5</span><span class="hlbl">Módulos MFRE</span></div>
+            </div>
+            <div class="hero-prog">
+              <span class="prog-lbl">Progreso general</span>
+              <div class="prog-bar"><div class="prog-fill" style="width:42%"></div></div>
+              <span class="prog-pct">42%</span>
+            </div>
+          </div>
+          <div class="hero-deco">
+            <div class="deco-ring r1"></div>
+            <div class="deco-ring r2"></div>
+            <div class="deco-ring r3"></div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="dash-main">
+            <!-- MODULES PREVIEW -->
+            <div class="section-hdr">
+              <h3><i class="ti ti-route"></i> Ruta formativa · Competencias MFRE 6-22</h3>
+              <button class="link-btn" onclick="showSection('modules')">Ver todos →</button>
+            </div>
+            <div class="modules-row">
+              <div class="mod-card done" onclick="openModule(1)">
+                <div class="mod-num">Módulo 01</div>
+                <div class="mod-ico teal"><i class="ti ti-shield-check"></i></div>
+                <div class="mod-name">Carácter del Líder Militar</div>
+                <div class="mod-foot">
+                  <span>6 actividades</span>
+                  <span class="tag green">✓ Completado</span>
+                </div>
+                <div class="mod-bar"><div class="mod-bf" style="width:100%;background:#10b981"></div></div>
+              </div>
+              <div class="mod-card active-mod" onclick="openModule(2)">
+                <div class="mod-num">Módulo 02</div>
+                <div class="mod-ico blue"><i class="ti ti-eye"></i></div>
+                <div class="mod-name">Presencia e Intelecto del Líder</div>
+                <div class="mod-foot">
+                  <span>7 actividades</span>
+                  <span class="tag blue">En curso</span>
+                </div>
+                <div class="mod-bar"><div class="mod-bf" style="width:55%"></div></div>
+              </div>
+              <div class="mod-card" onclick="openModule(3)">
+                <div class="mod-num">Módulo 03</div>
+                <div class="mod-ico amber"><i class="ti ti-users"></i></div>
+                <div class="mod-name">Liderar a Otros con el Ejemplo</div>
+                <div class="mod-foot">
+                  <span>8 actividades</span>
+                  <span class="tag gray">Próximo</span>
+                </div>
+                <div class="mod-bar"><div class="mod-bf" style="width:0%"></div></div>
+              </div>
+              <div class="mod-card locked" onclick="openModule(4)">
+                <div class="mod-num">Módulo 04</div>
+                <div class="mod-ico purple"><i class="ti ti-heart-handshake"></i></div>
+                <div class="mod-name">Desarrollar a Otros y al Equipo</div>
+                <div class="mod-foot">
+                  <span>6 actividades</span>
+                  <span class="tag gray"><i class="ti ti-lock"></i> Bloqueado</span>
+                </div>
+                <div class="mod-bar"><div class="mod-bf" style="width:0%"></div></div>
+              </div>
+              <div class="mod-card locked" onclick="openModule(5)">
+                <div class="mod-num">Módulo 05</div>
+                <div class="mod-ico red"><i class="ti ti-target"></i></div>
+                <div class="mod-name">Lograr Resultados con Ética</div>
+                <div class="mod-foot">
+                  <span>7 actividades</span>
+                  <span class="tag gray"><i class="ti ti-lock"></i> Bloqueado</span>
+                </div>
+                <div class="mod-bar"><div class="mod-bf" style="width:0%"></div></div>
+              </div>
+            </div>
+
+            <!-- ACTIVITIES -->
+            <div class="section-hdr" style="margin-top:24px">
+              <h3><i class="ti ti-calendar-event"></i> Actividades pendientes</h3>
+              <button class="link-btn" onclick="showSection('modules')">Ver todas →</button>
+            </div>
+            <div class="activity-list">
+              <div class="act-item" onclick="openActivity('quiz')">
+                <div class="act-ico blue"><i class="ti ti-clipboard-check"></i></div>
+                <div class="act-info">
+                  <div class="act-title">Quiz «Modelo de Liderazgo Militar» (25%)</div>
+                  <div class="act-sub">Módulo 02 · 3 intentos · Banco rotatorio · Vence en 5 días</div>
+                </div>
+                <span class="act-badge red">Pendiente</span>
+              </div>
+              <div class="act-item" onclick="openActivity('forum')">
+                <div class="act-ico amber"><i class="ti ti-messages"></i></div>
+                <div class="act-info">
+                  <div class="act-title">Foro: Dilema ético en escenario operacional complejo</div>
+                  <div class="act-sub">Módulo 02 · 12 respuestas nuevas · Cierra en 4 días</div>
+                </div>
+                <span class="act-badge amber">12 nuevas</span>
+              </div>
+              <div class="act-item" onclick="openActivity('diary')">
+                <div class="act-ico teal"><i class="ti ti-notebook"></i></div>
+                <div class="act-info">
+                  <div class="act-title">Diario Reflexivo de Liderazgo — Entrada Módulo 02</div>
+                  <div class="act-sub">Metacognición · Evaluación formativa continua</div>
+                </div>
+                <span class="act-badge blue">Nuevo</span>
+              </div>
+              <div class="act-item locked-act">
+                <div class="act-ico purple"><i class="ti ti-git-branch"></i></div>
+                <div class="act-info">
+                  <div class="act-title">Simulación VICA: Árbol de decisiones en terreno (35%)</div>
+                  <div class="act-sub">Módulo 03 · Disponible al completar Módulo 02</div>
+                </div>
+                <span class="act-badge gray"><i class="ti ti-lock"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-side">
+            <!-- INSTRUCTOR -->
+            <div class="widget">
+              <div class="widget-title"><i class="ti ti-user-star"></i> Acompañamiento tutorial</div>
+              <div class="instructor-box">
+                <div class="inst-av">PM</div>
+                <div class="inst-info">
+                  <div class="inst-name">Profesor Militar</div>
+                  <div class="inst-role">Instructor · CEDOC</div>
+                  <div class="inst-online"><span class="dot-green"></span> Disponible</div>
+                </div>
+                <button class="btn-msg" onclick="openChat()"><i class="ti ti-message"></i></button>
+              </div>
+              <div class="announcement">
+                <div class="ann-head"><i class="ti ti-speakerphone"></i> Anuncio</div>
+                Recuerden completar el Diario Reflexivo antes del cierre del Módulo 02. La metacognición es parte esencial del proceso formativo militar.
+              </div>
+            </div>
+
+            <!-- MINI CALENDAR -->
+            <div class="widget">
+              <div class="widget-title"><i class="ti ti-calendar"></i> Próximas entregas</div>
+              <div class="deadlines">
+                <div class="deadline-item">
+                  <div class="dl-date blue">16<span>May</span></div>
+                  <div class="dl-info"><strong>Quiz Módulo 02</strong><span>25% de la nota</span></div>
+                </div>
+                <div class="deadline-item">
+                  <div class="dl-date amber">18<span>May</span></div>
+                  <div class="dl-info"><strong>Simulación VICA</strong><span>35% de la nota</span></div>
+                </div>
+                <div class="deadline-item">
+                  <div class="dl-date red">26<span>May</span></div>
+                  <div class="dl-info"><strong>Proyecto integrador</strong><span>40% de la nota</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- QUICK STATS -->
+            <div class="widget">
+              <div class="widget-title"><i class="ti ti-chart-bar"></i> Competencias MFRE 6-22</div>
+              <div class="comp-bars">
+                <div class="cb-row"><span>Carácter</span><div class="cb-bg"><div class="cb-fill" style="width:88%;background:#10b981"></div></div><span>88%</span></div>
+                <div class="cb-row"><span>Presencia</span><div class="cb-bg"><div class="cb-fill" style="width:55%"></div></div><span>55%</span></div>
+                <div class="cb-row"><span>Liderar</span><div class="cb-bg"><div class="cb-fill" style="width:32%;background:#7c3aed"></div></div><span>32%</span></div>
+                <div class="cb-row"><span>Desarrollar</span><div class="cb-bg"><div class="cb-fill" style="width:18%;background:#d97706"></div></div><span>18%</span></div>
+                <div class="cb-row"><span>Lograr</span><div class="cb-bg"><div class="cb-fill" style="width:8%;background:#e11d48"></div></div><span>8%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULES -->
+      <section id="sec-modules" class="section">
+        <div class="page-header">
+          <h2><i class="ti ti-stack-2"></i> Módulos del curso</h2>
+          <p>Ruta formativa · Competencias MFRE 6-22 · Modelo de Liderazgo Militar</p>
+        </div>
+        <div class="modules-full" id="modulesFull"></div>
+      </section>
+
+      <!-- MODULE DETAIL -->
+      <section id="sec-module-detail" class="section">
+        <div id="moduleDetailContent"></div>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="sec-quiz" class="section">
+        <div id="quizContent"></div>
+      </section>
+
+      <!-- FORUMS -->
+      <section id="sec-forums" class="section">
+        <div class="page-header">
+          <h2><i class="ti ti-messages"></i> Foros de reflexión</h2>
+          <p>Espacios de construcción colectiva del conocimiento · Módulo 02</p>
+        </div>
+        <div class="forums-list">
+          <div class="forum-card active-forum" onclick="openForum('etico')">
+            <div class="forum-top">
+              <div class="forum-ico amber"><i class="ti ti-scale"></i></div>
+              <div class="forum-meta">
+                <span class="forum-mod">Módulo 02</span>
+                <span class="forum-tag open">Abierto</span>
+              </div>
+            </div>
+            <h3>Dilema ético en escenario operacional complejo</h3>
+            <p>Analice y reflexione sobre la toma de decisiones bajo presión en contextos donde la ética militar y la misión entran en tensión.</p>
+            <div class="forum-stats">
+              <span><i class="ti ti-message"></i> 47 respuestas</span>
+              <span><i class="ti ti-users"></i> 23 participantes</span>
+              <span><i class="ti ti-clock"></i> Cierra en 4 días</span>
+            </div>
+          </div>
+          <div class="forum-card" onclick="openForum('liderazgo')">
+            <div class="forum-top">
+              <div class="forum-ico blue"><i class="ti ti-star"></i></div>
+              <div class="forum-meta">
+                <span class="forum-mod">Módulo 01</span>
+                <span class="forum-tag closed">Cerrado</span>
+              </div>
+            </div>
+            <h3>¿Qué hace a un líder militar en el siglo XXI?</h3>
+            <p>Reflexión sobre los atributos del liderazgo en el contexto de la transformación institucional del Ejército Nacional.</p>
+            <div class="forum-stats">
+              <span><i class="ti ti-message"></i> 82 respuestas</span>
+              <span><i class="ti ti-users"></i> 41 participantes</span>
+              <span><i class="ti ti-check"></i> Completado</span>
+            </div>
+          </div>
+          <div class="forum-card locked-forum">
+            <div class="forum-top">
+              <div class="forum-ico purple"><i class="ti ti-lock"></i></div>
+              <div class="forum-meta">
+                <span class="forum-mod">Módulo 03</span>
+                <span class="forum-tag locked">Bloqueado</span>
+              </div>
+            </div>
+            <h3>Liderazgo situacional en operaciones de consolidación</h3>
+            <p>Disponible al completar el Módulo 02.</p>
+            <div class="forum-stats">
+              <span><i class="ti ti-lock"></i> Completa Módulo 02 para desbloquear</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORUM DETAIL -->
+      <section id="sec-forum-detail" class="section">
+        <div id="forumDetailContent"></div>
+      </section>
+
+      <!-- ANALYTICS -->
+      <section id="sec-analytics" class="section">
+        <div class="page-header">
+          <h2><i class="ti ti-chart-line"></i> Mi progreso</h2>
+          <p>Analíticas de aprendizaje · PIEM Alpha · IBD Ciclo I</p>
+        </div>
+        <div class="analytics-grid">
+          <div class="stat-card blue">
+            <div class="stat-icon"><i class="ti ti-progress"></i></div>
+            <div class="stat-val">42%</div>
+            <div class="stat-lbl">Progreso general</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon"><i class="ti ti-check"></i></div>
+            <div class="stat-val">1/5</div>
+            <div class="stat-lbl">Módulos completados</div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-icon"><i class="ti ti-clock"></i></div>
+            <div class="stat-val">28h</div>
+            <div class="stat-lbl">Tiempo de estudio</div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-icon"><i class="ti ti-award"></i></div>
+            <div class="stat-val">2/5</div>
+            <div class="stat-lbl">Insignias obtenidas</div>
+          </div>
+        </div>
+        <div class="analytics-detail">
+          <div class="widget" style="flex:2">
+            <div class="widget-title"><i class="ti ti-chart-bar"></i> Desempeño por competencia MFRE 6-22</div>
+            <div class="comp-bars big">
+              <div class="cb-row"><span>Carácter</span><div class="cb-bg"><div class="cb-fill" style="width:88%;background:#10b981"></div></div><span>88%</span></div>
+              <div class="cb-row"><span>Presencia e Intelecto</span><div class="cb-bg"><div class="cb-fill" style="width:55%"></div></div><span>55%</span></div>
+              <div class="cb-row"><span>Liderar a Otros</span><div class="cb-bg"><div class="cb-fill" style="width:32%;background:#7c3aed"></div></div><span>32%</span></div>
+              <div class="cb-row"><span>Desarrollar a Otros</span><div class="cb-bg"><div class="cb-fill" style="width:18%;background:#d97706"></div></div><span>18%</span></div>
+              <div class="cb-row"><span>Lograr Resultados</span><div class="cb-bg"><div class="cb-fill" style="width:8%;background:#e11d48"></div></div><span>8%</span></div>
+            </div>
+          </div>
+          <div class="widget" style="flex:1">
+            <div class="widget-title"><i class="ti ti-clipboard-list"></i> Evaluaciones</div>
+            <div class="eval-list">
+              <div class="eval-item done"><span>Quiz Módulo 01</span><strong>88/100</strong></div>
+              <div class="eval-item pending"><span>Quiz Módulo 02</span><strong>Pendiente</strong></div>
+              <div class="eval-item locked"><span>Simulación VICA</span><strong><i class="ti ti-lock"></i></strong></div>
+              <div class="eval-item locked"><span>Proyecto integrador</span><strong><i class="ti ti-lock"></i></strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESOURCES -->
+      <section id="sec-resources" class="section">
+        <div class="page-header">
+          <h2><i class="ti ti-file-text"></i> Recursos del curso</h2>
+          <p>Material doctrinal · MFRE 6-22 · Recursos multimedia y de apoyo</p>
+        </div>
+        <div class="resources-grid">
+          <div class="res-card" onclick="alert('Abriendo MFRE 6-22...')"><div class="res-ico blue"><i class="ti ti-book"></i></div><div class="res-info"><strong>MFRE 6-22 Liderazgo Militar</strong><span>Manual doctrinal fundamental · PDF</span></div></div>
+          <div class="res-card" onclick="alert('Reproduciendo video...')"><div class="res-ico red"><i class="ti ti-player-play"></i></div><div class="res-info"><strong>Video-cápsulas doctrinales</strong><span>Módulo 02 · 6 videos · 45 min</span></div></div>
+          <div class="res-card" onclick="alert('Abriendo H5P...')"><div class="res-ico amber"><i class="ti ti-puzzle"></i></div><div class="res-info"><strong>Actividades H5P interactivas</strong><span>Escenarios VICA · Toma de decisiones</span></div></div>
+          <div class="res-card" onclick="alert('Abriendo Genially...')"><div class="res-ico purple"><i class="ti ti-presentation"></i></div><div class="res-info"><strong>Infografías Genially</strong><span>Atributos del líder militar</span></div></div>
+          <div class="res-card" onclick="alert('Abriendo Articulate...')"><div class="res-ico teal"><i class="ti ti-device-laptop"></i></div><div class="res-info"><strong>Módulo Articulate Rise</strong><span>Escenarios interactivos de liderazgo</span></div></div>
+          <div class="res-card" onclick="alert('Descargando rúbrica...')"><div class="res-ico green"><i class="ti ti-file-certificate"></i></div><div class="res-info"><strong>Rúbrica analítica — Proyecto final</strong><span>Criterios de evaluación · Descargable</span></div></div>
+        </div>
+      </section>
+
+      <!-- BADGES -->
+      <section id="sec-badges" class="section">
+        <div class="page-header">
+          <h2><i class="ti ti-award"></i> Insignias y certificación</h2>
+          <p>Reconocimientos por competencias MFRE 6-22 · PIEM Alpha</p>
+        </div>
+        <div class="badges-grid-full">
+          <div class="badge-full earned"><div class="badge-icon gold"><i class="ti ti-shield-check"></i></div><div class="badge-name">Carácter del Líder</div><div class="badge-desc">Módulo 01 completado · 88/100</div><div class="badge-date">Obtenida: 5 abril 2026</div></div>
+          <div class="badge-full earned"><div class="badge-icon blue"><i class="ti ti-brain"></i></div><div class="badge-name">Intelecto Militar</div><div class="badge-desc">Foro Módulo 01 destacado</div><div class="badge-date">Obtenida: 8 abril 2026</div></div>
+          <div class="badge-full locked-badge"><div class="badge-icon gray"><i class="ti ti-lock"></i></div><div class="badge-name">Liderazgo en Acción</div><div class="badge-desc">Completa Módulo 02</div><div class="badge-date">Bloqueada</div></div>
+          <div class="badge-full locked-badge"><div class="badge-icon gray"><i class="ti ti-lock"></i></div><div class="badge-name">Desarrollo de Otros</div><div class="badge-desc">Completa Módulo 04</div><div class="badge-date">Bloqueada</div></div>
+          <div class="badge-full locked-badge"><div class="badge-icon gray"><i class="ti ti-lock"></i></div><div class="badge-name">Logro Ético</div><div class="badge-desc">Completa Módulo 05</div><div class="badge-date">Bloqueada</div></div>
+          <div class="badge-full cert locked-badge"><div class="badge-icon cert-icon"><i class="ti ti-certificate"></i></div><div class="badge-name">Certificado MOOC</div><div class="badge-desc">Completa todos los módulos · 2.5 créditos</div><div class="badge-date">Bloqueado</div></div>
+        </div>
+      </section>
+
+      <!-- COMMUNITY -->
+      <section id="sec-community" class="section">
+        <div class="page-header">
+          <h2><i class="ti ti-users"></i> Comunidad de práctica</h2>
+          <p>Red de aprendizaje · PIEM Alpha · 180.000 integrantes del Ejército Nacional</p>
+        </div>
+        <div class="community-grid">
+          <div class="comm-card"><div class="comm-av" style="background:#eff6ff;color:#1d4ed8">CR</div><div class="comm-info"><strong>Coronel Ramírez</strong><span>Instructor CEDOC · En línea</span></div><span class="dot-green"></span></div>
+          <div class="comm-card"><div class="comm-av" style="background:#f0fdf4;color:#059669">SM</div><div class="comm-info"><strong>Sargento Mora</strong><span>Suboficial · Módulo 01 completado</span></div><span class="dot-green"></span></div>
+          <div class="comm-card"><div class="comm-av" style="background:#f5f3ff;color:#7c3aed">SP</div><div class="comm-info"><strong>Soldado Pérez</strong><span>Soldado profesional · Módulo 02</span></div><span class="dot-gray"></span></div>
+          <div class="comm-card"><div class="comm-av" style="background:#fffbeb;color:#d97706">DI</div><div class="comm-info"><strong>Diseñadora Instruccional</strong><span>Politécnico Grancolombiano</span></div><span class="dot-green"></span></div>
+          <div class="comm-card"><div class="comm-av" style="background:#fff1f2;color:#e11d48">TA</div><div class="comm-info"><strong>Teniente Aguilar</strong><span>Oficial · Módulo 02 en curso</span></div><span class="dot-green"></span></div>
+          <div class="comm-card"><div class="comm-av" style="background:#f0fdf4;color:#059669">CB</div><div class="comm-info"><strong>Cabo Bermúdez</strong><span>Nivel básico · Activo</span></div><span class="dot-gray"></span></div>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section id="sec-profile" class="section">
+        <div class="page-header">
+          <h2><i class="ti ti-user"></i> Mi perfil</h2>
+        </div>
+        <div class="profile-card">
+          <div class="profile-avatar">FP</div>
+          <div class="profile-info">
+            <h3>Fabio Roldan Pinzón Ariza</h3>
+            <p>Oficial · Centro de Liderazgo del Ejército (CELEJ)</p>
+            <p>Maestría en Innovación Educativa · Politécnico Grancolombiano</p>
+            <div class="profile-stats">
+              <div><strong>42%</strong><span>Progreso</span></div>
+              <div><strong>28h</strong><span>Estudio</span></div>
+              <div><strong>2</strong><span>Insignias</span></div>
+              <div><strong>88</strong><span>Mejor nota</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="modal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<!-- NOTIFICATION PANEL -->
+<div id="notifPanel" class="notif-panel">
+  <div class="notif-header"><strong>Notificaciones</strong><button onclick="toggleNotif()"><i class="ti ti-x"></i></button></div>
+  <div class="notif-item unread"><i class="ti ti-clipboard-check"></i><div><strong>Quiz Módulo 02</strong><p>Vence en 5 días. ¡No olvides presentarlo!</p></div></div>
+  <div class="notif-item unread"><i class="ti ti-message"></i><div><strong>Nueva respuesta en foro</strong><p>El Coronel Ramírez respondió tu aporte.</p></div></div>
+  <div class="notif-item unread"><i class="ti ti-award"></i><div><strong>¡Insignia desbloqueada!</strong><p>Obtuviste "Intelecto Militar" por tu participación.</p></div></div>
+  <div class="notif-item"><i class="ti ti-speakerphone"></i><div><strong>Anuncio del instructor</strong><p>Nuevo material en Módulo 02 disponible.</p></div></div>
+</div>
+
+<!-- CHAT MODAL -->
+<div id="chatModal" class="chat-modal">
+  <div class="chat-header">
+    <div class="chat-avatar">PM</div>
+    <div><strong>Profesor Militar · CEDOC</strong><span class="dot-green"></span> En línea</div>
+    <button onclick="closeChat()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg received"><p>¡Hola! Estoy aquí para acompañarte en tu proceso formativo. ¿En qué puedo ayudarte hoy?</p><span>09:30</span></div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Escribe tu mensaje..." onkeypress="handleChatKey(event)"/>
+    <button onclick="sendChat()"><i class="ti ti-send"></i></button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
