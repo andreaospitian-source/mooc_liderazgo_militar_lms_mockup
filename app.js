@@ -122,8 +122,8 @@ const MODULES = [
   { id:1, num:'01', title:'Carácter del Líder Militar', desc:'Fundamentos del carácter militar: valores, virtudes, ética y atributos del líder según el MFRE 6-22. El carácter como base del liderazgo auténtico.', ico:'ti-shield-check', color:'teal', acts:6, prog:100, status:'done', tag:'✓ Completado' },
   { id:2, num:'02', title:'Presencia e Intelecto del Líder', desc:'Atributos de presencia e intelecto del líder militar. Desarrollo cognitivo, toma de decisiones bajo incertidumbre y pensamiento crítico en el entorno VICA.', ico:'ti-eye', color:'blue', acts:7, prog:55, status:'active', tag:'En curso' },
   { id:3, num:'03', title:'Liderar a Otros con el Ejemplo', desc:'Competencias para liderar equipos en ambientes operacionales exigentes. Liderazgo situacional, influencia ética y cohesión de unidad.', ico:'ti-users', color:'amber', acts:8, prog:0, status:'next', tag:'Próximo' },
-  { id:4, num:'04', title:'Desarrollar a Otros y al Equipo', desc:'Estrategias para el desarrollo del talento humano militar. Mentoría, coaching operacional y construcción de equipos de alto desempeño.', ico:'ti-heart-handshake', color:'purple', acts:6, prog:0, status:'locked', tag:'desbloqueado' },
-  { id:5, num:'05', title:'Lograr Resultados con Ética', desc:'Orientación al logro con integridad. Planeamiento operacional, gestión de recursos y toma de decisiones con responsabilidad moral.', ico:'ti-target', color:'red', acts:7, prog:0, status:'locked', tag:'desbloqueado' },
+  { id:4, num:'04', title:'Desarrollar a Otros y al Equipo', desc:'Estrategias para el desarrollo del talento humano militar. Mentoría, coaching operacional y construcción de equipos de alto desempeño.', ico:'ti-heart-handshake', color:'purple', acts:6, prog:0, status:'next', tag:'desbloqueado' },
+  { id:5, num:'05', title:'Lograr Resultados con Ética', desc:'Orientación al logro con integridad. Planeamiento operacional, gestión de recursos y toma de decisiones con responsabilidad moral.', ico:'ti-target', color:'red', acts:7, prog:0, status:'next', tag:'desbloqueado' },
 ];
 
 function buildModulesFull() {
