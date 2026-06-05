@@ -122,8 +122,8 @@ const MODULES = [
   { id:1, num:'01', title:'Carácter del Líder Militar', desc:'Fundamentos del carácter militar: valores, virtudes, ética y atributos del líder según el MFRE 6-22. El carácter como base del liderazgo auténtico.', ico:'ti-shield-check', color:'teal', acts:6, prog:100, status:'done', tag:'✓ Completado' },
   { id:2, num:'02', title:'Presencia e Intelecto del Líder', desc:'Atributos de presencia e intelecto del líder militar. Desarrollo cognitivo, toma de decisiones bajo incertidumbre y pensamiento crítico en el entorno VICA.', ico:'ti-eye', color:'blue', acts:7, prog:55, status:'active', tag:'En curso' },
   { id:3, num:'03', title:'Liderar a Otros con el Ejemplo', desc:'Competencias para liderar equipos en ambientes operacionales exigentes. Liderazgo situacional, influencia ética y cohesión de unidad.', ico:'ti-users', color:'amber', acts:8, prog:0, status:'next', tag:'Próximo' },
-  { id:4, num:'04', title:'Desarrollar a Otros y al Equipo', desc:'Estrategias para el desarrollo del talento humano militar. Mentoría, coaching operacional y construcción de equipos de alto desempeño.', ico:'ti-heart-handshake', color:'purple', acts:6, prog:0, status:'locked', tag:'Bloqueado' },
-  { id:5, num:'05', title:'Lograr Resultados con Ética', desc:'Orientación al logro con integridad. Planeamiento operacional, gestión de recursos y toma de decisiones con responsabilidad moral.', ico:'ti-target', color:'red', acts:7, prog:0, status:'locked', tag:'Bloqueado' },
+  { id:4, num:'04', title:'Desarrollar a Otros y al Equipo', desc:'Estrategias para el desarrollo del talento humano militar. Mentoría, coaching operacional y construcción de equipos de alto desempeño.', ico:'ti-heart-handshake', color:'purple', acts:6, prog:0, status:'locked', tag:'desbloqueado' },
+  { id:5, num:'05', title:'Lograr Resultados con Ética', desc:'Orientación al logro con integridad. Planeamiento operacional, gestión de recursos y toma de decisiones con responsabilidad moral.', ico:'ti-target', color:'red', acts:7, prog:0, status:'locked', tag:'desbloqueado' },
 ];
 
 function buildModulesFull() {
@@ -206,12 +206,12 @@ function getModuleActivities(m) {
     { title:'Foro: Dilema ético en escenario operacional complejo', sub:'12 nuevas respuestas · Cierra en 4 días', ico:'ti-messages', color:'amber', badge:'12 nuevas', badgeColor:'amber', fn:"openForum('etico')", locked:false },
     { title:'Diario Reflexivo — Entrada Módulo 02', sub:'Metacognición · Pendiente', ico:'ti-notebook', color:'teal', badge:'Pendiente', badgeColor:'amber', fn:"openActivity('diary')", locked:false },
     { title:'Quiz Módulo 02 — Presencia e Intelecto (25%)', sub:'3 intentos · Banco rotatorio · Vence en 5 días', ico:'ti-clipboard-check', color:'blue', badge:'Pendiente', badgeColor:'red', fn:"openActivity('quiz')", locked:false },
-    { title:'Simulación VICA: Árbol de decisiones en terreno (35%)', sub:'Disponible al completar las actividades previas', ico:'ti-git-branch', color:'purple', badge:'Bloqueado', badgeColor:'gray', fn:'', locked:true },
+    { title:'Simulación VICA: Árbol de decisiones en terreno (35%)', sub:'Disponible al completar las actividades previas', ico:'ti-git-branch', color:'purple', badge:'desbloqueado', badgeColor:'gray', fn:'', locked:true },
   ];
   return m.acts > 0 ? Array.from({length: m.acts}, (_,i) => ({
     title: `Actividad ${i+1} — ${m.title}`,
     sub: `Módulo ${m.num} · Disponible al desbloquear el módulo`,
-    ico: 'ti-lock', color: 'gray', badge: 'Bloqueado', badgeColor: 'gray', fn: '', locked: true
+    ico: 'ti-lock', color: 'gray', badge: 'desbloqueado', badgeColor: 'gray', fn: '', locked: true
   })) : [];
 }
 
@@ -219,7 +219,7 @@ function showLockedMsg() {
   showModal(`
     <div style="padding:28px;text-align:center">
       <div style="font-size:48px;color:#d97706;margin-bottom:12px"><i class="ti ti-lock"></i></div>
-      <h3 style="font-size:18px;color:#162e5a;margin-bottom:8px">Contenido bloqueado</h3>
+      <h3 style="font-size:18px;color:#162e5a;margin-bottom:8px">Contenido desbloqueado</h3>
       <p style="font-size:13.5px;color:#7aaad6;line-height:1.6">Debes completar el módulo anterior para acceder a este contenido. ¡Sigue avanzando en tu ruta formativa!</p>
       <button class="btn-primary" style="margin-top:20px" onclick="closeModal()">Entendido</button>
     </div>
