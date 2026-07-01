@@ -68,7 +68,7 @@ piem-alpha-mooc/
 
 ### Componentes pedagógicos integrados
 
-- **Módulos MFRE 6-22:** Carácter · Presencia e Intelecto · Liderar · Desarrollar · Lograr
+- **Módulos MFE 6-22:** Carácter · Presencia e Intelecto · Liderar · Desarrollar · Lograr
 - **Evaluación auténtica:** Quiz (25%) · Simulación VICA (35%) · Proyecto integrador (40%)
 - **Evaluación formativa:** Diario Reflexivo metacognitivo · Foros de reflexión
 - **Analíticas:** Learning analytics por competencia MFRE 6-22
